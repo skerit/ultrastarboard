@@ -78,6 +78,10 @@ PlayerScore.setMethod(async function getLeaderboard(options) {
 
 	for (let score of scores) {
 
+		if (score.Score < 6000) {
+			continue;
+		}
+
 		if (!players[score.Player]) {
 			players[score.Player] = {
 				name   : score.Player,
@@ -100,10 +104,34 @@ PlayerScore.setMethod(async function getLeaderboard(options) {
 
 	for (name in players) {
 		player = players[name];
+
+		// Add 10.000 for outlier shenanigans
+		// (removeOutliers also removes too high scores, but they should be kept)
+		player.scores.push(10047);
+
+		// Remove outliers (scores that are too low because of bad txt files)
+		player.scores = Math.removeOutliers(player.scores);
+
+		let index = player.scores.indexOf(10047);
+
+		if (index > -1) {
+			player.scores.splice(index, 1);
+		}
+
 		count = player.scores.length;
 
 		// Only calculate if people have the correct minimum songs sung
 		if (count < options.minimum_songs) {
+			continue;
+		}
+
+		// Calculate days ago
+		ago = ~~Date.difference('days', player.last);
+
+		player.ago = ago;
+
+		// People that haven't sung in over 4 years can be removed
+		if (ago > 1460) {
 			continue;
 		}
 
@@ -114,11 +142,6 @@ PlayerScore.setMethod(async function getLeaderboard(options) {
 
 		// Players with less songs sung will lose a percentage of their points
 		player.penalty_count = ~~(player.mean * Math.pow(Math.pow(count, 2), -1));
-
-		// Calculate days ago
-		ago = ~~Date.difference('days', player.last);
-
-		player.ago = ago;
 
 		// Players that haven't sung a song in a long time will also lose percentages
 		player.penalty_ago = ~~(player.mean * (Math.max(Math.pow(ago, 1/4) - 1.5, 0) / 100));
