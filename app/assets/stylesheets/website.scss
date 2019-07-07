@@ -1,0 +1,53 @@
+body {
+	padding: 5rem;
+	padding-top: 0;
+	background-image: url(/public/singing.jpg);
+	background-size: cover;
+	color: #FFF;
+	font-family: 'Oswald', sans-serif;
+	h1 {
+		font-size: 450%;
+		text-shadow: 2px 2px 2px rgba(0,0,0,.5), 2px 2px 20px rgba(0,0,0,.5);
+		font-family: 'Pacifico', sans-serif;		
+		font-weight: normal;
+	}
+	.pacifico {
+		font-family: 'Pacifico', sans-serif;
+		font-weight: normal;
+	}
+	table {
+		width: 47%;
+		margin-right: 3rem;
+		float: left;
+	}
+	td {
+		font-size: 250%;
+		color: white;
+		text-shadow: 2px 2px 2px rgba(0,0,0,.5), 2px 2px 20px rgba(0,0,0,.5);
+		padding-right: 2rem;
+		padding-top: .25rem;
+		padding-bottom: .25rem;
+	}
+	th {
+		text-shadow: 2px 2px 2px rgba(0,0,0,.5), 2px 2px 20px rgba(0,0,0,.5);		
+	}
+	td.rank {
+		padding-right: 1rem;
+		span {
+			background: rgba(237, 40, 50, .75);
+			border-radius: 100%;
+			display: inline-block;
+			width: 4rem; height: 4rem;
+			text-align: center;
+		}
+	}
+	.small {
+		font-size: 120%;
+		font-weight: 100;
+		padding-bottom: 1rem;
+		border-bottom: 2px solid rgba(255,255,255,.5);
+	}
+	th {
+		text-align: left;
+	}
+}

@@ -4,6 +4,7 @@
 		<% this.foundation({protoblast: true}) %>
 		<% style('website') %>
 		<% script('website') %>
+		<% style('https://fonts.googleapis.com/css?family=Oswald|Pacifico&display=swap') %>
 	</head>
 	<body>
 		<% assign('body') %>

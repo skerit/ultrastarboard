@@ -21,6 +21,9 @@ module.exports = {
 	// Start instance in client mode
 	client_mode: false,
 
+	// Enable Sass mode
+	css_sass: true,
+
 	// Gzip/deflate response compression
 	compression: true,
 
@@ -106,5 +109,5 @@ module.exports = {
 	toobusy: 70,
 
 	// Enable websockets
-	websockets: false
+	websockets: true
 };
