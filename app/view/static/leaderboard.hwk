@@ -4,78 +4,81 @@
 
 {% with players as player where player.rank eq 1 %}
 	{% each %}
-		<h1 class"pacifico">🏆 {%= player.name %} staat op één met een SingStar-score van {%= player.average %}!</h1>
+		<h1 class"pacifico">🏆 {%= player.name %} staat op één met een UltraStar-score van {%= player.average %}!</h1>
 	{% /each %}
 {% /with %}
 
-<table>
-	<thead>
-		<tr>
-			<th></th>
-			<th></th>
-			<th>AVERAGE</th>
-			<th>SONGS</th>
-			<th>MIN</th>
-			<th>MAX</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		{% with players as player where player.rank not eq 1 and player.rank lt 8 %}
-			{% each %}
-				<tr>
-					<td class="rank"><span>{%= player.rank %}</span></td>
-					<td class="pacifico" >{%= player.name %}</td>
-					<td>{%= player.average %}</td>
-					<td>{%= player.scores.length %}</td>
-					<td>{%= player.max %}</td>
-					<td>{%= player.min %}</td>
-				</tr>
-				<tr>
-					<td>
-					</td>
-					<td colspan="5" class="small">
-						{%= player.last.timeAgo() %}						
-					</td>
-				</tr>
-			{% /each %}
-		{% /with %}
-	</tbody>
-</table>
+<div class="board">
 
-<table>
-	<thead>
-		<tr>
-			<th></th>
-			<th></th>
-			<th>AVERAGE</th>
-			<th>SONGS</th>
-			<th>MIN</th>
-			<th>MAX</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		{% with players as player where player.rank not eq 1 and player.rank gt 7 and player.rank lt 14  %}
-			{% each %}
-				<tr>
-					<td class="rank"><span>{%= player.rank %}</span></td>
-					<td class="pacifico" >{%= player.name %}</td>
-					<td>{%= player.average %}</td>
-					<td>{%= player.scores.length %}</td>
-					<td>{%= player.max %}</td>
-					<td>{%= player.min %}</td>
-				</tr>
-				<tr>
-					<td>
-					</td>
-					<td colspan="5" class="small">
-						{%= player.last.timeAgo() %}						
-					</td>
-				</tr>
-			{% /each %}
-		{% /with %}
-	</tbody>
-</table>
+	<table>
+		<thead>
+			<tr>
+				<th></th>
+				<th></th>
+				<th>AVERAGE</th>
+				<th>SONGS</th>
+				<th>MAX</th>
+				<th>MIN</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% with players as player where player.rank lt 7 %}
+				{% each %}
+					<tr>
+						<td class="rank"><span>{%= player.rank %}</span></td>
+						<td class="pacifico player-name" >{%= player.name %}</td>
+						<td>{%= player.average %}</td>
+						<td>{%= player.scores.length %}</td>
+						<td>{%= player.max %}</td>
+						<td>{%= player.min %}</td>
+					</tr>
+					<tr>
+						<td>
+						</td>
+						<td colspan="5" class="small">
+							{%= player.last.timeAgo() %}
+						</td>
+					</tr>
+				{% /each %}
+			{% /with %}
+		</tbody>
+	</table>
+
+	<table>
+		<thead>
+			<tr>
+				<th></th>
+				<th></th>
+				<th>AVERAGE</th>
+				<th>SONGS</th>
+				<th>MAX</th>
+				<th>MIN</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% with players as player where player.rank gt 6 and player.rank lt 13 %}
+				{% each %}
+					<tr>
+						<td class="rank"><span>{%= player.rank %}</span></td>
+						<td class="pacifico player-name">{%= player.name %}</td>
+						<td>{%= player.average %}</td>
+						<td>{%= player.scores.length %}</td>
+						<td>{%= player.max %}</td>
+						<td>{%= player.min %}</td>
+					</tr>
+					<tr>
+						<td>
+						</td>
+						<td colspan="5" class="small">
+							{%= player.last.timeAgo() %}
+						</td>
+					</tr>
+				{% /each %}
+			{% /with %}
+		</tbody>
+	</table>
+</div>
 
 <% end('main') %>

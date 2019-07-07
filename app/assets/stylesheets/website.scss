@@ -1,25 +1,58 @@
+he-block {
+	display: block;
+}
+
+* {
+	box-sizing: border-box;
+}
+
 body {
-	padding: 5rem;
+	height: 100vh;
+	padding: 0;
 	padding-top: 0;
 	background-image: url(/public/singing.jpg);
+	background-attachment: fixed;
 	background-size: cover;
+	background-repeat: no-repeat;
 	color: #FFF;
 	font-family: 'Oswald', sans-serif;
+	margin: 0;
+
 	h1 {
 		font-size: 450%;
 		text-shadow: 2px 2px 2px rgba(0,0,0,.5), 2px 2px 20px rgba(0,0,0,.5);
-		font-family: 'Pacifico', sans-serif;		
+		font-family: 'Pacifico', sans-serif;
 		font-weight: normal;
+		text-align: center;
+		padding: 2rem;
+		margin: 0;
 	}
+
+	.player-name {
+		min-width: 10rem;
+	}
+
 	.pacifico {
 		font-family: 'Pacifico', sans-serif;
 		font-weight: normal;
 	}
-	table {
-		width: 47%;
-		margin-right: 3rem;
-		float: left;
+
+	.board {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		backdrop-filter: blur(15px);
+		background-color: rgba(255,255,255,0.3);
+		margin: 0 4rem;
+		padding: 1rem 1rem;
+		border-radius: 4px;
+
+		table {
+			width: 47%;
+			margin-right: 3rem;
+		}
 	}
+
 	td {
 		font-size: 250%;
 		color: white;
@@ -28,11 +61,14 @@ body {
 		padding-top: .25rem;
 		padding-bottom: .25rem;
 	}
+
 	th {
-		text-shadow: 2px 2px 2px rgba(0,0,0,.5), 2px 2px 20px rgba(0,0,0,.5);		
+		text-shadow: 2px 2px 2px rgba(0,0,0,.5), 2px 2px 20px rgba(0,0,0,.5);
 	}
+
 	td.rank {
 		padding-right: 1rem;
+
 		span {
 			background: rgba(237, 40, 50, .75);
 			border-radius: 100%;
@@ -41,12 +77,14 @@ body {
 			text-align: center;
 		}
 	}
+
 	.small {
 		font-size: 120%;
 		font-weight: 100;
 		padding-bottom: 1rem;
 		border-bottom: 2px solid rgba(255,255,255,.5);
 	}
+
 	th {
 		text-align: left;
 	}
