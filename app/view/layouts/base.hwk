@@ -3,7 +3,7 @@
 	<head>
 		<% this.foundation({protoblast: true}) %>
 		<% style('website') %>
-		<% script('website') %>
+		<% script(['sortable', 'website']) %>
 		<% style('https://fonts.googleapis.com/css?family=Oswald|Pacifico&display=swap') %>
 	</head>
 	<body>

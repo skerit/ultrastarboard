@@ -6,3 +6,19 @@ Router.add({
 	handler    : 'Static#home',
 	breadcrumb : 'static.home'
 });
+
+Router.add({
+	name       : 'Leaderboard',
+	methods    : 'get',
+	paths      : '/leaderboard',
+	handler    : 'Static#leaderboard',
+	breadcrumb : 'static.leaderboard'
+});
+
+Router.add({
+	name       : 'Songs',
+	methods    : 'get',
+	paths      : '/songs',
+	handler    : 'Static#songs',
+	breadcrumb : 'static.songs'
+});

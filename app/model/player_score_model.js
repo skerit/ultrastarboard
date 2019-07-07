@@ -64,10 +64,21 @@ PlayerScore.setMethod(async function getLeaderboard(options) {
 		options.age_penalty = false;
 	}
 
+	if (options.session) {
+		let date = Date.create(options.session);
+
+		options.since = date.clone();
+		options.until = date.clone().add(1.5, 'day');
+	}
+
 	let crit = this.find();
 
 	if (options.since) {
 		crit.where('Date').gte(options.since);
+	}
+
+	if (options.until) {
+		crit.where('Date').lte(options.until);
 	}
 
 	this.nukeCache();
@@ -80,12 +91,23 @@ PlayerScore.setMethod(async function getLeaderboard(options) {
 	    name,
 	    ago;
 
-	let Song = this.getModel('Song');
+	let Song = this.getModel('Song'),
+	    songs = {},
+	    song;
 
 	for (let score of scores) {
 
-		if (score.Score < 6140) {
-			continue;
+		if (!options.normalize_scores) {
+			if (score.Score < 6140 || score.Score > 9600) {
+				continue;
+			}
+		}
+
+		if (!songs[score.SongID]) {
+			song = await Song.findById(score.SongID);
+			songs[score.SongID] = song;
+		} else {
+			song = songs[score.SongID];
 		}
 
 		if (!players[score.Player]) {
@@ -96,8 +118,16 @@ PlayerScore.setMethod(async function getLeaderboard(options) {
 			};
 		}
 
+		let normalized_score = score.Score;
+
+		if (options.normalize_scores) {
+			normalized_score = await song.normalizeScore(score.Score);
+		}
+
+		score.normalized_score = normalized_score;
+
 		player = players[score.Player];
-		player.scores.push(score.Score);
+		player.scores.push(normalized_score);
 
 		if (score.Date) {
 			if (!player.last) {
@@ -137,7 +167,7 @@ PlayerScore.setMethod(async function getLeaderboard(options) {
 		player.ago = ago;
 
 		// People that haven't sung in over 4 years can be removed
-		if (ago > 1460) {
+		if (options.remove_old && ago > 1460) {
 			continue;
 		}
 
@@ -167,11 +197,12 @@ PlayerScore.setMethod(async function getLeaderboard(options) {
 				continue;
 			}
 
-			if (score.Score == player.max) {
+			if (score.normalized_score == player.max) {
 				player.max_song = await Song.findById(score.SongID);
+				player.max_song.loadScores();
 			}
 
-			if (score.Score == player.min) {
+			if (score.normalized_score == player.min) {
 				player.min_song = await Song.findById(score.SongID);
 			}
 		}

@@ -2,9 +2,19 @@
 
 <% start('main') %>
 
+{% if not bigscreen %}
+	<nav class="navigation">
+		<ul>
+			<li><a href="/">Home</a></li>
+			<li><a href="/?session=2017-10-28">Laatste sessie</a></li>
+			<li><a href="/songs">Songs</a></li>
+		</ul>
+	</nav>
+{% /if %}
+
 {% with players as player where player.rank eq 1 %}
 	{% each %}
-		<h1 class"pacifico">🏆 {%= player.name %} staat op één met een UltraStar-score van {%= player.average %}!</h1>
+		<h1 class="pacifico">🏆 {%= player.name %} staat op één met een UltraStar-score van {%= player.average %}!</h1>
 	{% /each %}
 {% /with %}
 
@@ -38,13 +48,13 @@
 						</td>
 						<td colspan="5" class="small">
 							<div class="row">
-								<div>
+								<div title=<% player.last.format('Y-m-d H:i:s') %>>
 									{%= player.last.timeAgo() %}
 								</div>
 								<div class="songs">
-									👍 {%= player.max_song.Title %} by {%= player.max_song.Artist %}
+									👍 {%= player.max_song.Title %} – {%= player.max_song.Artist %}
 									<br>
-									👎 {%= player.min_song.Title %} by {%= player.min_song.Artist %}
+									👎 {%= player.min_song.Title %} – {%= player.min_song.Artist %}
 								</div>
 							</div>
 						</td>
@@ -82,13 +92,13 @@
 						</td>
 						<td colspan="5" class="small">
 							<div class="row">
-								<div>
+								<div title=<% player.last.format('Y-m-d H:i:s') %>>
 									{%= player.last.timeAgo() %}
 								</div>
 								<div class="songs">
-									👍 {%= player.max_song.Title %} by {%= player.max_song.Artist %}
+									👍 {%= player.max_song.Title %} – {%= player.max_song.Artist %}
 									<br>
-									👎 {%= player.min_song.Title %} by {%= player.min_song.Artist %}
+									👎 {%= player.min_song.Title %} – {%= player.min_song.Artist %}
 								</div>
 							</div>
 						</td>

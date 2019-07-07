@@ -6,6 +6,15 @@ he-block {
 	box-sizing: border-box;
 }
 
+table.sortable th {
+	cursor: pointer;
+	min-width: 6rem;
+}
+
+table.sortable th:not(.sorttable_sorted):not(.sorttable_sorted_reverse):not(.sorttable_nosort):after { 
+	content: " \25B4\25BE" 
+}
+
 body {
 	height: 100vh;
 	padding: 0;
@@ -18,9 +27,37 @@ body {
 	font-family: 'Oswald', sans-serif;
 	margin: 0;
 
+	.navigation {
+		width: 100%;
+		padding: 0.5rem 1rem ;
+		background: black;
+
+		ul {
+			display: flex;
+
+			li {
+				list-style: none;
+				margin-right: 1rem;
+
+				a {
+					color: white;
+					font-size: 1.5rem;
+				}
+			}
+		}
+
+		& + .board {
+			margin-top: 1rem;
+		}
+	}
+
+	.navigation + h1 {
+		font-size: 200% !important;
+	}
+
 	h1 {
 		font-size: 450%;
-		text-shadow: 2px 2px 2px rgba(0,0,0,.5), 2px 2px 20px rgba(0,0,0,.5);
+		text-shadow: 2px 2px 2px rgba(0,0,0,.5), 2px 2px 20px rgba(0,0,0,.8);
 		font-family: 'Pacifico', sans-serif;
 		font-weight: normal;
 		text-align: center;
@@ -47,10 +84,20 @@ body {
 		flex-wrap: wrap;
 		justify-content: space-around;
 		backdrop-filter: blur(15px);
-		background-color: rgba(0, 0, 0, 0.2);
+		background-color: rgba(0, 0, 0, 0.3);
 		margin: 0 4rem;
 		padding: 1rem 1rem;
 		border-radius: 4px;
+
+		&.songs {
+			table {
+				width: 99%;
+
+				td {
+					font-size: 150% !important;
+				}
+			}
+		}
 
 		table {
 			width: 47%;

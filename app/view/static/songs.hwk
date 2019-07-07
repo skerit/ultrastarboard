@@ -1,0 +1,40 @@
+<% expands('layouts/body'); %>
+
+<% start('main') %>
+<nav class="navigation">
+	<ul>
+		<li><a href="/">Home</a></li>
+		<li><a href="/?session=2017-10-28">Laatste sessie</a></li>
+		<li><a href="/songs">Songs</a></li>
+	</ul>
+</nav>
+
+<h1 class="pacifico">Alle momenteel beschikbare liedjes</h1>
+
+<div class="board songs">
+	<table class="js-make-sortable sortable">
+		<thead>
+			<tr>
+				<th class="sorttable_alpha">Artist</th>
+				<th class="sorttable_alpha">Title</th>
+				<th class="sorttable_numeric">Playcount</th>
+				<th class="sorttable_numeric">Min</th>
+				<th class="sorttable_numeric">Max</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% with songs as song %}
+				{% each %}
+					<tr>
+						<td>{%= song.artist %}</td>
+						<td>{%= song.title %}</td>
+						<td>{%= song.played %}</td>
+						<td>{%= song.min %}</td>
+						<td>{%= song.max %}</td>
+					</tr>
+				{% /each %}
+			{% /with %}
+		</tbody>
+	</table>
+</div>
+<% end('main') %>

@@ -23,25 +23,12 @@ process.on('unhandledRejection', function onRejection(error, promise) {
 	alchemy.printLog('error', ['Uncaught Promise Rejection!', String(error), error], {err: error, level: -2});
 });
 
-alchemy.start(function onAlchemyReady() {
+alchemy.start(async function onAlchemyReady() {
 
-	// Do certain things when alchemy is ready
+	alchemy.ultrastar = new Classes.Alchemy.Ultrastar();
+
+	if (alchemy.settings.path_to_songs) {
+		alchemy.ultrastar.scanDir(alchemy.settings.path_to_songs);
+	}
 
 });
-
-setTimeout(async function() {
-	console.log('Getting score...');
-
-	let PlayerScore = Model.get('PlayerScore');
-
-	let first = await PlayerScore.find('first', {sort: {Date: -1}});
-
-	console.log('Got first:', first);
-
-	await first.populate('Song');
-
-	console.log('Populated Song')
-
-	
-}, 500)
-
