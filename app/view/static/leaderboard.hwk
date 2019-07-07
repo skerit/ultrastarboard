@@ -1,0 +1,32 @@
+<% expands('layouts/body'); %>
+
+<% start('main') %>
+<table>
+	<thead>
+		<tr>
+			<th>Rank</th>
+			<th>Player</th>
+			<th>Average</th>
+			<th>Amount</th>
+			<th>Days ago</th>
+			<th>Max</th>
+			<th>Min</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% with players as player %}
+			{% each %}
+				<tr>
+					<td>{%= player.rank %}</td>
+					<td>{%= player.name %}</td>
+					<td>{%= player.average %}</td>
+					<td>{%= player.scores.length %}</td>
+					<td>{%= player.last.timeAgo() %}</td>
+					<td>{%= player.max %}</td>
+					<td>{%= player.min %}</td>
+				</tr>
+			{% /each %}
+		{% /with %}
+	</tbody>
+</table>
+<% end('main') %>

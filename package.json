@@ -1,0 +1,11 @@
+{
+	"name": "ultrastarboard",
+	"description": "My Alchemy App",
+	"version": "0.1.0",
+	"dependencies": {
+		"alchemymvc": "skerit/alchemy"
+	},
+	"engines": {
+		"node": ">=8.9.0"
+	}
+}
