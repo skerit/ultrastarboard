@@ -20,6 +20,15 @@ var Song = Function.inherits('Alchemy.Model.Usdx', function Song(options) {
 Song.table = 'us_songs';
 
 /**
+ * Use ID as primary key
+ *
+ * @author   Jelle De Loecker <jelle@develry.be>
+ * @since    0.1.0
+ * @version  0.1.0
+ */
+Song.setProperty('primary_key', 'ID');
+
+/**
  * Constitute the class wide schema
  *
  * @author   Jelle De Loecker   <jelle@develry.be>

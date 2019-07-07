@@ -23,7 +23,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% with players as player where player.rank lt 7 %}
+			{% with players as player where player.rank lt 6 %}
 				{% each %}
 					<tr>
 						<td class="rank"><span>{%= player.rank %}</span></td>
@@ -37,7 +37,16 @@
 						<td>
 						</td>
 						<td colspan="5" class="small">
-							{%= player.last.timeAgo() %}
+							<div class="row">
+								<div>
+									{%= player.last.timeAgo() %}
+								</div>
+								<div class="songs">
+									👍 {%= player.max_song.Title %} by {%= player.max_song.Artist %}
+									<br>
+									👎 {%= player.min_song.Title %} by {%= player.min_song.Artist %}
+								</div>
+							</div>
 						</td>
 					</tr>
 				{% /each %}
@@ -58,7 +67,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% with players as player where player.rank gt 6 and player.rank lt 13 %}
+			{% with players as player where player.rank gt 5 and player.rank lt 11 %}
 				{% each %}
 					<tr>
 						<td class="rank"><span>{%= player.rank %}</span></td>
@@ -72,7 +81,16 @@
 						<td>
 						</td>
 						<td colspan="5" class="small">
-							{%= player.last.timeAgo() %}
+							<div class="row">
+								<div>
+									{%= player.last.timeAgo() %}
+								</div>
+								<div class="songs">
+									👍 {%= player.max_song.Title %} by {%= player.max_song.Artist %}
+									<br>
+									👎 {%= player.min_song.Title %} by {%= player.min_song.Artist %}
+								</div>
+							</div>
 						</td>
 					</tr>
 				{% /each %}

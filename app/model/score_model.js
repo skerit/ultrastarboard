@@ -60,6 +60,10 @@ PlayerScore.setMethod(async function getLeaderboard(options) {
 		options.minimum_songs = 4;
 	}
 
+	if (options.age_penalty == null) {
+		options.age_penalty = false;
+	}
+
 	let crit = this.find();
 
 	if (options.since) {
@@ -76,9 +80,11 @@ PlayerScore.setMethod(async function getLeaderboard(options) {
 	    name,
 	    ago;
 
+	let Song = this.getModel('Song');
+
 	for (let score of scores) {
 
-		if (score.Score < 6000) {
+		if (score.Score < 6140) {
 			continue;
 		}
 
@@ -143,13 +149,32 @@ PlayerScore.setMethod(async function getLeaderboard(options) {
 		// Players with less songs sung will lose a percentage of their points
 		player.penalty_count = ~~(player.mean * Math.pow(Math.pow(count, 2), -1));
 
-		// Players that haven't sung a song in a long time will also lose percentages
-		player.penalty_ago = ~~(player.mean * (Math.max(Math.pow(ago, 1/4) - 1.5, 0) / 100));
+		if (options.age_penalty) {
+			// Players that haven't sung a song in a long time will also lose percentages
+			player.penalty_ago = ~~(player.mean * (Math.max(Math.pow(ago, 1/4) - 1.5, 0) / 100));
+		} else {
+			player.penalty_ago = 0;
+		}
 
 		// And now our weighted average
 		player.average = ~~((player.median + player.mean) / 2) - player.penalty_count - player.penalty_ago;
 
 		result.push(player);
+
+		// Look for the top song of this player
+		for (let score of scores) {
+			if (score.Player != name) {
+				continue;
+			}
+
+			if (score.Score == player.max) {
+				player.max_song = await Song.findById(score.SongID);
+			}
+
+			if (score.Score == player.min) {
+				player.min_song = await Song.findById(score.SongID);
+			}
+		}
 	}
 
 	result.sortByPath(-1, 'average');
