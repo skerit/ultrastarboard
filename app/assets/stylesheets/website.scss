@@ -145,3 +145,33 @@ body {
 		text-align: left;
 	}
 }
+
+.board.mirror {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: 0;
+	background: black;
+	border-radius: 0;
+	display: flex;
+	align-items: center;
+
+	.next-5 {
+		display: none;
+	}
+
+	.top-5 {
+		width: 100%;
+		margin: 0;
+	}
+
+	tr.extra {
+		display: none;
+	}
+}
+
+*:focus {
+	outline: none;
+}

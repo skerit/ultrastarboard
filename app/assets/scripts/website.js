@@ -1,9 +1,15 @@
-console.log('Setting up reloader...');
 
 setInterval(function doInterval() {
-	console.log('reloading...')
-	alchemy.openUrl('/');
-}, 30 * 100000);
+
+	let songs = document.querySelector('.board.songs');
+
+	// Don't refresh songs page
+	if (songs) {
+		return;
+	}
+
+	alchemy.openUrl(''+window.location);
+}, 30 * 1000);
 
 hawkejs.scene.appears('js-make-sortable', {live: true}, function gotTable(table) {
 

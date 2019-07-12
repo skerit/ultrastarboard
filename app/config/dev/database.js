@@ -7,8 +7,8 @@
 // });
 
 Datasource.create('sqlite3', 'usdx', {
-	path : PATH_TEMP + '/ultrastar.db',
-	//path : '/media/bridge/ultrastar/profile/Ultrastar.db',
+	//path : PATH_TEMP + '/ultrastar.db',
+	path : '/media/bridge/ultrastar/profile/Ultrastar.db',
 	read   : true,
 	create : false,
 	update : false,

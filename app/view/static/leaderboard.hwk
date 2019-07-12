@@ -2,7 +2,7 @@
 
 <% start('main') %>
 
-{% if not bigscreen %}
+{% if not bigscreen and not mirror %}
 	<nav class="navigation">
 		<ul>
 			<li><a href="/">Home</a></li>
@@ -12,15 +12,19 @@
 	</nav>
 {% /if %}
 
-{% with players as player where player.rank eq 1 %}
-	{% each %}
-		<h1 class="pacifico">🏆 {%= player.name %} staat op één met een UltraStar-score van {%= player.average %}!</h1>
-	{% /each %}
-{% /with %}
+{% if not mirror %}
+	{% with players as player where player.rank eq 1 %}
+		{% each %}
+			<h1 class="pacifico">🏆 {%= player.name %} staat op één met een UltraStar-score van {%= player.average %}!</h1>
+		{% /each %}
+	{% /with %}
+{% /if %}
 
 <div class="board">
+	<% if (mirror) $0.classList.add('mirror') %>
+	<% if (bigscreen) $0.classList.add('bigscreen') %>
 
-	<table>
+	<table class="top-5">
 		<thead>
 			<tr>
 				<th></th>
@@ -35,7 +39,7 @@
 		<tbody>
 			{% with players as player where player.rank lt 6 %}
 				{% each %}
-					<tr>
+					<tr class="ranking">
 						<td class="rank"><span>{%= player.rank %}</span></td>
 						<td class="pacifico player-name" >{%= player.name %}</td>
 						<td>{%= player.average %}</td>
@@ -43,7 +47,7 @@
 						<td>{%= player.max %}</td>
 						<td>{%= player.min %}</td>
 					</tr>
-					<tr>
+					<tr class="extra">
 						<td>
 						</td>
 						<td colspan="5" class="small">
@@ -64,22 +68,25 @@
 		</tbody>
 	</table>
 
-	<table>
-		<thead>
-			<tr>
-				<th></th>
-				<th></th>
-				<th>AVERAGE</th>
-				<th>SONGS</th>
-				<th>MAX</th>
-				<th>MIN</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			{% with players as player where player.rank gt 5 and player.rank lt 11 %}
-				{% each %}
+	{% with players as player where player.rank gt 5 and player.rank lt 11 %}
+		{% all %}
+			<table class="next-5">
+				<thead>
 					<tr>
+						<th></th>
+						<th></th>
+						<th>AVERAGE</th>
+						<th>SONGS</th>
+						<th>MAX</th>
+						<th>MIN</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+		{% /all %}
+			
+				{% each %}
+					<tr class="ranking">
 						<td class="rank"><span>{%= player.rank %}</span></td>
 						<td class="pacifico player-name">{%= player.name %}</td>
 						<td>{%= player.average %}</td>
@@ -87,7 +94,7 @@
 						<td>{%= player.max %}</td>
 						<td>{%= player.min %}</td>
 					</tr>
-					<tr>
+					<tr class="extra">
 						<td>
 						</td>
 						<td colspan="5" class="small">
@@ -104,9 +111,12 @@
 						</td>
 					</tr>
 				{% /each %}
-			{% /with %}
-		</tbody>
-	</table>
+
+		{% all %}
+				</tbody>
+			</table>
+		{% /all %}
+	{% /with %}
 </div>
 
 <% end('main') %>

@@ -59,10 +59,20 @@ Static.setAction(async function leaderboard(conduit) {
 		options.session = conduit.param('session');
 	}
 
+	if (conduit.param('mirror')) {
+		options.mirror = conduit.param('mirror');
+		this.set('mirror', true);
+	} else {
+		this.set('bigscreen', true);
+	}
+
+	if (conduit.param('minimum_songs')) {
+		options.minimum_songs = parseInt(conduit.param('minimum_songs'));
+	}
+
 	let result = await PlayerScore.getLeaderboard(options);
 
 	this.set('players', result);
-	this.set('bigscreen', true);
 
 	// Render the leaderboard
 	this.render('static/leaderboard');

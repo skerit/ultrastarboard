@@ -57,7 +57,7 @@ PlayerScore.setMethod(async function getLeaderboard(options) {
 	}
 
 	if (!options.minimum_songs) {
-		options.minimum_songs = 4;
+		options.minimum_songs = 3;
 	}
 
 	if (options.age_penalty == null) {
@@ -67,8 +67,8 @@ PlayerScore.setMethod(async function getLeaderboard(options) {
 	if (options.session) {
 		let date = Date.create(options.session);
 
-		options.since = date.clone();
-		options.until = date.clone().add(1.5, 'day');
+		options.since = date.clone()//.add(2, 'hours');
+		options.until = date.clone().add(2.1, 'day');
 	}
 
 	let crit = this.find();
@@ -98,7 +98,7 @@ PlayerScore.setMethod(async function getLeaderboard(options) {
 	for (let score of scores) {
 
 		if (!options.normalize_scores) {
-			if (score.Score < 6140 || score.Score > 9600) {
+			if (score.Score < 6140 || score.Score > 9900) {
 				continue;
 			}
 		}
@@ -141,17 +141,24 @@ PlayerScore.setMethod(async function getLeaderboard(options) {
 	for (name in players) {
 		player = players[name];
 
-		// Add 10.000 for outlier shenanigans
-		// (removeOutliers also removes too high scores, but they should be kept)
-		player.scores.push(10047);
+		if (player.scores.length > 40) {
+			// Add 10.000 for outlier shenanigans
+			// (removeOutliers also removes too high scores, but they should be kept)
+			player.scores.push(10047);
 
-		// Remove outliers (scores that are too low because of bad txt files)
-		player.scores = Math.removeOutliers(player.scores);
+			// Remove outliers (scores that are too low because of bad txt files)
+			player.scores = Math.removeOutliers(player.scores);
 
-		let index = player.scores.indexOf(10047);
+			let index = player.scores.indexOf(10047);
 
-		if (index > -1) {
-			player.scores.splice(index, 1);
+			if (index > -1) {
+				player.scores.splice(index, 1);
+			}
+		}
+
+		// There seems to be some timezone issue where 2 hours are added
+		if (player.last) {
+			player.last.subtract(2, 'hours');
 		}
 
 		count = player.scores.length;
