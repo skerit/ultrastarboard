@@ -70,6 +70,8 @@ Static.setAction(async function leaderboard(conduit) {
 		options.minimum_songs = parseInt(conduit.param('minimum_songs'));
 	}
 
+	options.normalize_scores = true;
+
 	let result = await PlayerScore.getLeaderboard(options);
 
 	this.set('players', result);

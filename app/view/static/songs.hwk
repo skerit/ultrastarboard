@@ -25,7 +25,7 @@
 		<tbody>
 			{% with songs as song %}
 				{% each %}
-					<tr>
+					<tr data-song-id={% song.id %}>
 						<td>{%= song.artist %}</td>
 						<td>{%= song.title %}</td>
 						<td>{%= song.played %}</td>

@@ -120,8 +120,10 @@ PlayerScore.setMethod(async function getLeaderboard(options) {
 
 		let normalized_score = score.Score;
 
+		// See if we need to normalize the song score
 		if (options.normalize_scores) {
-			normalized_score = await song.normalizeScore(score.Score);
+			normalized_score = await song.normalizeScore(normalized_score);
+			normalized_score = ~~(((normalized_score * 2) + score.Score) / 3);
 		}
 
 		score.normalized_score = normalized_score;

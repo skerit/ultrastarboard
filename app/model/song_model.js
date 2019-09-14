@@ -98,10 +98,33 @@ Song.setDocumentMethod(async function normalizeScore(score) {
 
 	let scores = await this.loadScores(false);
 
+	// Because outliers are removed from the scores,
+	// some values won't be taken into account in the scale
+	// If that's the case, we need to clip those values manually
+	if (score < scores.min) {
+		return 6000;
+	}
+
+	if (score > scores.max) {
+		return 9600;
+	}
+
 	let result = Math.ceil(Number.normalize([score], scores.scale)[0]);
 
+	// When only 1 score is found for a song, the normalize functions returns
+	// a NaN
+	if (!result) {
+		result = score;
+	}
+
 	if (result < 6000) {
+		console.log('Score', score, result, 'is too low', scores, 'for song', this)
 		return 6000;
+	}
+
+	if (result > 9600) {
+		console.log('Score', score, result, 'is too high', scores)
+		result = 9600;
 	}
 
 	return result;

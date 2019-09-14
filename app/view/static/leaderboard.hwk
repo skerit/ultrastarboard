@@ -37,7 +37,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% with players as player where player.rank lt 6 %}
+			{% with players as player where player.rank lt 5 %}
 				{% each %}
 					<tr class="ranking">
 						<td class="rank"><span>{%= player.rank %}</span></td>
@@ -68,7 +68,7 @@
 		</tbody>
 	</table>
 
-	{% with players as player where player.rank gt 5 and player.rank lt 11 %}
+	{% with players as player where player.rank gt 4 and player.rank lt 9 %}
 		{% all %}
 			<table class="next-5">
 				<thead>
