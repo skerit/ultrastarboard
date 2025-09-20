@@ -3,9 +3,10 @@
 	"description": "My Alchemy App",
 	"version": "0.1.0",
 	"dependencies": {
-		"alchemymvc": "skerit/alchemy",
+		"alchemymvc": "1.2.0",
+		"alchemy-ds-sql": "skerit/alchemy-ds-sql",
 		"alchemy-ds-sqlite3": "skerit/alchemy-ds-sqlite3",
-		"alchemy-ds-sql": "skerit/alchemy-ds-sql"
+		"node-sass": "^9.0.0"
 	},
 	"engines": {
 		"node": ">=8.9.0"

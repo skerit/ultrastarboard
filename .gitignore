@@ -50,3 +50,6 @@ yarn.lock
 
 # Ignore the local settings file
 app/config/local.js
+
+# Ignore plugins
+plugins/*

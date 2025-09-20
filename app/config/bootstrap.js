@@ -9,4 +9,5 @@
  * @since       0.1.0
  * @license     MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+alchemy.usePlugin('ds-sql');
 alchemy.usePlugin('ds-sqlite3');
