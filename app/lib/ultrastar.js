@@ -55,7 +55,7 @@ Ultrastar.setMethod(async function scanDir(path) {
 	for (let song of songs) {
 		let pieces = song.name.split('-');
 
-		if (!pieces || !pieces.length == 2) {
+		if (!pieces || pieces.length != 2) {
 			continue;
 		}
 
